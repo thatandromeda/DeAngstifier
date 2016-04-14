@@ -1,0 +1,414 @@
+<!--
+  STATUS:
+  * figure out how to add groups to the sub-dicts
+  * make for loops happen (previously this broke the template by marking its
+    first token as illegal, but the error was probably messed up for loop
+    syntax)
+  * fix meta tags
+  * edit footer
+  * will need to keep track of indexes so we overwrite rather than add if people
+    change data within a set
+  * privacy statement
+  * scroll to top button at bottom
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DeAngstifier</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="css/cover.css" rel="stylesheet">
+
+    <!-- Overrides -->
+    <style type="text/css">
+      .initial-hidden {
+        display: none;
+      }
+
+      .input-group {
+        margin: 25.5px 0; 
+      }
+
+      .input-group-addon {
+        text-shadow: none;
+      }
+
+      .masthead, .mastfoot {
+        position: relative;
+      }
+
+      .masthead {
+        margin-bottom: 34px;
+      }
+
+      .mastfoot {
+        margin-top: 68px;
+      }
+
+      .dropdown-menu {
+        text-shadow: none;
+        color: #333;
+      }
+
+      .dropdown-menu li {
+        padding-left: 5px;
+      }
+
+      .dropdown-menu li:hover {
+        background-color: #eee;
+      }
+
+      .panel {
+        border-color: white;
+        background-color: #333;
+      }
+
+      .panel-heading {
+        background-color: #eee;
+        text-shadow: none;        
+      }
+
+      .panel-body {
+        padding: 10px;        
+      }
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">DeAngstifier</h3>
+            </div>
+          </div>
+
+          <!-- begin intro -->
+          <div class="inner cover" id="section-intro">
+            <h1 class="cover-heading">Let's write your bio.</h1>
+            <p class="lead">
+              Filled with angst because you have to write a speaker bio? Let
+              DeAngstifier help.
+            </p>
+            <p class="lead">
+              <button class="btn btn-lg btn-default" id="action-start">Get started</button>
+            </p>
+          </div>
+          <!-- end intro -->
+
+          <!-- begin basics collection -->
+          <div class="inner cover initial-hidden" id="section-basics">
+            <h1 class="cover-heading">First, the basics.</h1>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-name">Your name</span>
+              <input type="text" class="form-control" placeholder="e.g. Buffy Summers, Dr. Seuss" aria-describedby="basic-name" id="name">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-subject">Your subject pronoun</span>
+              <input type="text" class="form-control" placeholder="e.g. she, he, they, ze" aria-describedby="basic-subject" id="subject">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-object">Your object pronoun</span>
+              <input type="text" class="form-control" placeholder="e.g. her, him, them, zir" aria-describedby="basic-object" id="object">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-possessive">Your possessive adjective</span>
+              <input type="text" class="form-control" placeholder="as in her unicorn, his taco, their kitten, zir favorite " aria-describedby="basic-possessive" id="possessive">
+            </div>
+            <p class="lead">
+              <button class="btn btn-lg btn-default" id="action-next" disabled="disabled">Continue</button>
+            </p>
+          </div>
+          <!-- end basics collection -->
+
+          <!-- begin extra info collection -->
+          <div class="inner cover initial-hidden" id="section-extras">
+            <h1 class="cover-heading">Add flavor</h1>
+            <p>
+              Everything in this section is optional, and it's fine if it
+              doesn't all apply to you. Add what you want; then
+              copy/paste your bio and go. DeAngstified!
+            </p>
+
+            <div class="panel panel-default">
+              <div class="panel-body" id="section-bio">
+                <h2>Your bio</h2>
+                <p class="lead" id="bio-contents">
+                </p>
+              </div>
+            </div>
+
+            <!-- begin current work-->
+            <div class="panel panel-default">
+              <div class="panel-body" id="current">
+                <div class="input-pair">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-current-title">Current title</span>
+                    <input type="text" class="form-control" placeholder="University Librarian, web developer, freelance goat herder" aria-describedby="extras-current-title" data-key="title">
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-current-institution">Current institution</span>
+                    <input type="text" class="form-control" aria-describedby="extras-current-institution" data-key="institution">
+                  </div>
+                </div>
+
+                <button data-attribute-1='title' data-attribute-2='institution' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add other current work</button>
+              </div>
+            </div>
+            <!-- end current work-->
+
+            <!-- begin previous work-->
+            <div class="panel panel-default">
+              <div class="panel-body" id="previous">
+                <div class="input-pair">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-previous-title">Previous title</span>
+                    <input type="text" class="form-control" placeholder="University Librarian, web developer, freelance goat herder" aria-describedby="extras-current-title" data-key="title">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-previous-institution">Previous institution</span>
+                    <input type="text" class="form-control" placeholder="" aria-describedby="extras-previous-institution" data-key="institution">
+                  </div>
+                </div>
+                <button data-attribute-1='title' data-attribute-2='institution' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add other previous work</button>
+              </div>
+            </div>
+            <!-- end previous work-->
+
+            <!-- begin education -->
+            <div class="panel panel-default">
+              <div class="panel-body" id="degree">
+                <div class="input-pair">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-degree">Degree</span>
+                    <input type="text" class="form-control" placeholder="BS in math, MLS, Ph.D. in nuclear engineering" aria-describedby="extras-degree" data-key="degree">
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-degree-institution">Degree institution</span>
+                    <input type="text" class="form-control" placeholder="McGill, the University of Minnesota, Simmons" aria-describedby="extras-degree-institution" data-key="institution">
+                  </div>
+                </div>
+
+                <button data-attribute-1='degree' data-attribute-2='institution' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add degree</button>
+              </div>
+            </div>
+            <!-- end education, except of course not, since learning is lifelong -->
+
+            <!-- begin misc -->
+            <div class="panel panel-default">
+              <div class="panel-body" id="flavor">
+                <div class="input-group">
+                  <span class="input-group-addon" id="extras-verb">(Pick a verb)</span>
+                  <input type="text" class="form-control" placeholder="working on, passionate about, ..." aria-describedby="extras-verb" data-key="verb">
+
+                  <span class="input-group-addon" id="extras-interests">Interests</span>
+                  <input type="text" class="form-control" placeholder="linked data and donuts" aria-describedby="extras-interests" data-key="interests">
+                </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="extras-flavor-fact">An interesting sentence about you</span>
+                  <input type="text" class="form-control" placeholder="She was a listener contestant on Wait Wait, Don't Tell Me." aria-describedby="extras-flavor-fact" data-key="flavor_fact">
+                </div>
+              </div>
+            </div>
+            <!-- end misc -->
+          </div>
+          <!-- end extra info collection -->
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var $j = jQuery.noConflict();
+      $j(document).ready(function () {
+        $j('.dropdown-toggle').dropdown(); // activate dropdowns
+
+        var counter = 1;
+        $j('.add_attribute').click(function () {
+          var local_data = {}
+          local_data['attribute_1'] = $j(this).data('attribute-1');
+          local_data['attribute_2'] = $j(this).data('attribute-2');
+          local_data['counter'] = counter;
+          console.log(local_data)
+
+          var input_template = _.template('\
+            <div class="input-pair">\
+              <div class="input-group"> \
+                <span class="input-group-addon" id="extras-<%=data.attribute_1%>-<%=data.counter%>"><%=data.attribute_1%></span> \
+                <input type="text" class="form-control" aria-describedby="extras-<%=data.attribute_1%>-<%=data.counter%>" data-key="<%=data.attribute_1%>"> \
+              </div> \
+              \
+              <div class="input-group"> \
+                <span class="input-group-addon" id="extras-<%=data.attribute_2%>-<%=data.counter%>"><%=data.attribute_2%></span> \
+                <input type="text" class="form-control" aria-describedby="extras-<%=data.attribute_2%>-<%=data.counter%>" data-key="<%=data.attribute_2%>"> \
+              </div>\
+            </div>');
+          $j(this).before(input_template({data: local_data}));
+          counter++;
+        });
+
+        var data = {
+          'current': [],
+          'previous': [],
+          'degree': [],
+          'flavor': [],
+        }
+
+        var bio_contents = $j('#bio-contents');
+
+        var default_bio_options = [
+          '<%=name%>: awesome.',
+          '<%=name%> looks great today!',
+          "I'm a tiny web page, and I believe in <%=name%>.",
+          '<%=name%> is definitely changing the world.',
+          '<%=name%> is a dream come true.',
+          '<%=name%> has been rocking it out so far, but the best is yet to come.',
+          "It's pretty amazing what <%=name%> can do.",
+          '<%=name%> sure does have great taste.',
+          '<%=name%> is beautiful and powerful, like a rocket made of rainbows.',
+          "<%=name%> brings a smile to everyone's face.",
+        ]
+
+        $j('#action-start').click(function () {
+          $j('#section-intro').fadeOut(500, function () {
+            $j('#section-basics').fadeIn(500);
+          });
+        });
+
+        action_next = $j('#action-next');
+        action_next.click(function () {
+          bio_contents.html(_.template(_.sample(default_bio_options))({name: data['name']}));
+          $j('#section-basics').fadeOut(500, function () {
+            $j('#section-extras').fadeIn(500);
+          });
+        });
+
+        var basics_inputs = $j('#section-basics input');
+        basics_inputs.focusin(function () {
+          var empty = basics_inputs.filter(function() {
+              return this.value === "";
+          });
+
+          if (empty.length == 1) {
+            action_next.removeAttr('disabled');
+          } else {
+            action_next.attr('disabled', 'disabled')
+          }
+        })
+
+        basics_inputs.focusout(function () {
+          data[$j(this).attr('id')] = $j(this).val();
+        });
+
+        var bio_template = _.template("\
+<%if (current.length > 0) { %>\
+<%=data.name%> is \
+<%for (i = 0; i < current.length; i++) { %>\
+<%if (i > 0 && current.length != 2) { %>, <%}%><%if (i == current.length - 1 && current.length >= 2) { %> and <%}%>\
+  a <% print(data['current'][i]['title']) %>\
+<%if ('institution' in data['current'][i]) { %> \
+  at <% print(data['current'][i]['institution']) %>\
+<%}}%>.<%}%>\
+\
+<%if (previous.length > 0) { %>\
+  She was previously \
+<%for (i = 0; i < previous.length; i++) { %>\
+<%if (i > 0 && previous.length != 2) { %>, <%}%><%if (i == previous.length - 1 && previous.length >= 2) { %> and <%}%>\
+  a <% print(data['previous'][i]['title']) %>\
+<%if ('institution' in data['previous'][i]) { %> \
+  at <% print(data['previous'][i]['institution']) %>\
+<%}}%>.<%}%>\
+\
+<%if (degree.length > 0) { %>\
+  She holds \
+<%for (i = 0; i < degree.length; i++) { %>\
+<%if (i > 0 && degree.length != 2) { %>, <%}%><%if (i == degree.length - 1 && degree.length >= 2) { %> and <%}%>\
+  a <% print(data['degree'][i]['degree']) %>\
+<%if ('institution' in data['degree'][i]) { %> \
+  from <% print(data['degree'][i]['institution']) %>\
+<%}}%>.<%}%>\
+\
+<%if (flavor.interests) { %>\
+  <%=data.name%> is \
+  <%if (flavor.verb) {%>\
+    <%=flavor.verb%>\
+  <%} else {%>\
+    interested in\
+  <%}%> <%=flavor.interests%>. \
+<%}%>\
+<%if (flavor.flavor_fact) { %>\
+  <%=flavor.flavor_fact%>\
+<%}%>");
+
+        var extras_parent = $j('#section-extras');
+        extras_parent.on('change', 'input', function () {
+          var elem = $j(this);
+          var category = elem.parents('.panel-body').attr('id');
+          if (category == 'flavor') {
+              data[category][elem.data('key')] = elem.val();
+          } else {
+            var idx = elem.parents('.panel-body').children('.input-pair').index($j(this).parents('.input-pair'));
+            if (idx in data[category]) {
+              data[category][idx][elem.data('key')] = elem.val();
+            } else {
+              var new_data = {};
+              new_data[elem.data('key')] = elem.val();
+              data[category][idx] = new_data;            
+            }
+          }
+          console.log(data)
+
+          bio_contents.html(bio_template({data: data,
+            // Yes, this is terrible. But it seems to work with this poorly
+            // documented template language. So...whatever.
+            current: data['current'],
+            previous: data['previous'],
+            degree: data['degree'],
+            flavor: data['flavor'],
+          }));
+        });
+      });
+    </script>
+  </body>
+</html>
