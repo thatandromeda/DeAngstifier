@@ -372,7 +372,13 @@
         })
 
         basics_inputs.focusout(function () {
-          data[$j(this).attr('id')] = $j(this).val();
+          var key = $j(this).attr('id');
+          if (key == 'subject') {
+            // Will only be used at start of sentence; capitalize it.
+            data[key] = $j(this).val().charAt(0).toUpperCase() + $j(this).val().slice(1);
+          } else {
+            data[key] = $j(this).val();            
+          }
         });
 
         var bio_template = _.template("\
@@ -386,7 +392,7 @@
 <%}}%>.<%}%>\
 \
 <%if (previous.length > 0) { %>\
-  She was previously \
+  <%=data.subject%> was previously \
 <%for (i = 0; i < previous.length; i++) { %>\
 <%if (i > 0 && previous.length != 2) { %>, <%}%><%if (i == previous.length - 1 && previous.length >= 2) { %> and <%}%>\
   a <% print(data['previous'][i]['title']) %>\
@@ -395,7 +401,7 @@
 <%}}%>.<%}%>\
 \
 <%if (degree.length > 0) { %>\
-  She holds \
+  <%=data.subject%> holds \
 <%for (i = 0; i < degree.length; i++) { %>\
 <%if (i > 0 && degree.length != 2) { %>, <%}%><%if (i == degree.length - 1 && degree.length >= 2) { %> and <%}%>\
   a <% print(data['degree'][i]['degree']) %>\
@@ -411,7 +417,7 @@
 <%}%>.<%}%>\
 \
 <%if (awards.length > 0) { %>\
-  She has been recognized for her work with \
+  <%=data.subject%> has been recognized for <%=data.possessive%> work with \
 <%for (i = 0; i < awards.length; i++) { %>\
 <%if (i > 0 && awards.length != 2) { %>, <%}%><%if (i == awards.length - 1 && awards.length >= 2) { %> and <%}%>\
   a <% print(data['awards'][i]['award']) %>\
