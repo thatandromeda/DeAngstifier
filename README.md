@@ -4,4 +4,4 @@ Are you full of angst because you need to write a conference bio? I hear you. Wr
 
 So let a friendly robot do it for you! You give [DeAngstifier](https://thatandromeda.github.io/DeAngstifier/) some data; it'll do the writing. (Proofread, though; articles and prepositions are hard, and you're way better at them than the friendly robot.)
 
-All the code is on the [gh-pages](https://github.com/thatandromeda/DeAngstifier/blob/gh-pages/) branch.
+All the code is on the [gh-pages](https://github.com/thatandromeda/DeAngstifier/tree/gh-pages) branch.
