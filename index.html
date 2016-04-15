@@ -371,13 +371,20 @@
           }
         })
 
+        function capitalize (str) {
+          return str.charAt(0).toUpperCase() + str.slice(1)
+        }
         basics_inputs.focusout(function () {
           var key = $j(this).attr('id');
           if (key == 'subject') {
             // Will only be used at start of sentence; capitalize it.
-            data[key] = $j(this).val().charAt(0).toUpperCase() + $j(this).val().slice(1);
+            data[key] = capitalize($j(this).val());
+          } else if (key == 'object' || key == 'possessive') {
+            // Will only be used after the start of sentence; downcase it.
+            data[key] = $j(this).val().toLowerCase();
           } else {
-            data[key] = $j(this).val();            
+            // Leave names alone.
+            data[key] = $j(this).val();
           }
         });
 
@@ -440,7 +447,16 @@
           var elem = $j(this);
           var category = elem.parents('.panel-body').attr('id');
           if (category == 'flavor') {
-              data[category][elem.data('key')] = elem.val();
+            var key = elem.data('key');
+            if (key == 'flavor_fact') {
+              var sentence = capitalize(elem.val());
+              if (sentence.slice(-1) != '.' || sentence.slice(-1) != '!' || sentence.slice(-1) != '?') {
+                sentence = sentence.concat('.');
+              }
+              data[category][key] = sentence;
+            } else {
+              data[category][key] = elem.val();
+            }
           } else {
             var idx = elem.parents('.panel-body').children('.input-pair').index($j(this).parents('.input-pair'));
             if (idx in data[category]) {
