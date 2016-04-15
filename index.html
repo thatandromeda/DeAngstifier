@@ -41,6 +41,7 @@
 
       .input-group-addon {
         text-shadow: none;
+        text-transform: capitalize;
       }
 
       .masthead, .mastfoot {
@@ -122,17 +123,17 @@
             <h1 class="cover-heading">First, the basics.</h1>
             <div class="input-group">
               <span class="input-group-addon" id="basic-name">Your name</span>
-              <input type="text" class="form-control" placeholder="e.g. Buffy Summers, Dr. Seuss" aria-describedby="basic-name" id="name">
+              <input type="text" class="form-control" placeholder="Buffy Summers, Dr. Seuss" aria-describedby="basic-name" id="name">
             </div>
 
             <div class="input-group">
               <span class="input-group-addon" id="basic-subject">Your subject pronoun</span>
-              <input type="text" class="form-control" placeholder="e.g. she, he, they, ze" aria-describedby="basic-subject" id="subject">
+              <input type="text" class="form-control" placeholder="for example: she, he, they, ze" aria-describedby="basic-subject" id="subject">
             </div>
 
             <div class="input-group">
               <span class="input-group-addon" id="basic-object">Your object pronoun</span>
-              <input type="text" class="form-control" placeholder="e.g. her, him, them, zir" aria-describedby="basic-object" id="object">
+              <input type="text" class="form-control" placeholder="for example: her, him, them, zir" aria-describedby="basic-object" id="object">
             </div>
 
             <div class="input-group">
@@ -159,6 +160,7 @@
                 <h2>Your bio</h2>
                 <p class="lead" id="bio-contents">
                 </p>
+                <p class="small"><em>(make sure to proofread!)</em></p>
               </div>
             </div>
 
@@ -188,7 +190,7 @@
                 <div class="input-pair">
                   <div class="input-group">
                     <span class="input-group-addon" id="extras-previous-title">Previous title</span>
-                    <input type="text" class="form-control" placeholder="University Librarian, web developer, freelance goat herder" aria-describedby="extras-current-title" data-key="title">
+                    <input type="text" class="form-control" placeholder="University Librarian, web developer, freelance goat herder" aria-describedby="extras-previous-title" data-key="title">
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon" id="extras-previous-institution">Previous institution</span>
@@ -215,17 +217,45 @@
                   </div>
                 </div>
 
-                <button data-attribute-1='degree' data-attribute-2='institution' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add degree</button>
+                <button data-attribute-1='degree' data-attribute-2='institution' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add another degree</button>
               </div>
             </div>
             <!-- end education, except of course not, since learning is lifelong -->
+
+            <!-- begin service -->
+            <div class="panel panel-default">
+              <div class="panel-body" id="roles">
+                <div class="input-pair">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-service">Professional service roles</span>
+                    <input type="text" class="form-control" placeholder="Finnish President, Chair of the Committee on Chupacabra Relations" aria-describedby="extras-service" data-key="role">
+                  </div>
+                </div>
+                <button data-attribute-1='role' data-attribute-2='role' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add more roles</button>
+              </div>
+            </div>
+            <!-- end service-->
+
+            <!-- begin awards -->
+            <div class="panel panel-default">
+              <div class="panel-body" id="awards">
+                <div class="input-pair">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="extras-awards">Award or honor received</span>
+                    <input type="text" class="form-control" placeholder="4th grade science fair honorable mention, Nobel Peace Prize" aria-describedby="extras-awards" data-key="award">
+                  </div>
+                </div>
+                <button data-attribute-1='award' data-attribute-2='award' class="add_attribute btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Add more awards</button>
+              </div>
+            </div>
+            <!-- end awards-->
 
             <!-- begin misc -->
             <div class="panel panel-default">
               <div class="panel-body" id="flavor">
                 <div class="input-group">
                   <span class="input-group-addon" id="extras-verb">(Pick a verb)</span>
-                  <input type="text" class="form-control" placeholder="working on, passionate about, ..." aria-describedby="extras-verb" data-key="verb">
+                  <input type="text" class="form-control" placeholder="is working on, enjoys, is passionate about, ..." aria-describedby="extras-verb" data-key="verb">
 
                   <span class="input-group-addon" id="extras-interests">Interests</span>
                   <input type="text" class="form-control" placeholder="linked data and donuts" aria-describedby="extras-interests" data-key="interests">
@@ -238,6 +268,7 @@
               </div>
             </div>
             <!-- end misc -->
+            <button class="btn btn-lg btn-default" id="scrolltop"><span class="glyphicon glyphicon-arrow-up"></span> Scroll up for your bio!</button>
           </div>
           <!-- end extra info collection -->
 
@@ -264,6 +295,10 @@
       $j(document).ready(function () {
         $j('.dropdown-toggle').dropdown(); // activate dropdowns
 
+        $j('#scrolltop').click(function () {
+          $j("html, body").animate({ scrollTop: 0 }, "slow");
+        });
+
         var counter = 1;
         $j('.add_attribute').click(function () {
           var local_data = {}
@@ -278,7 +313,11 @@
                 <span class="input-group-addon" id="extras-<%=data.attribute_1%>-<%=data.counter%>"><%=data.attribute_1%></span> \
                 <input type="text" class="form-control" aria-describedby="extras-<%=data.attribute_1%>-<%=data.counter%>" data-key="<%=data.attribute_1%>"> \
               </div> \
+            <% if (data.attribute_1 == data.attribute_2) { %> \
+            </div> \
               \
+            <div class="input-pair">\
+            <% } %>\
               <div class="input-group"> \
                 <span class="input-group-addon" id="extras-<%=data.attribute_2%>-<%=data.counter%>"><%=data.attribute_2%></span> \
                 <input type="text" class="form-control" aria-describedby="extras-<%=data.attribute_2%>-<%=data.counter%>" data-key="<%=data.attribute_2%>"> \
@@ -293,6 +332,8 @@
           'previous': [],
           'degree': [],
           'flavor': [],
+          'awards': [],
+          'roles': [],
         }
 
         var bio_contents = $j('#bio-contents');
@@ -369,8 +410,22 @@
   from <% print(data['degree'][i]['institution']) %>\
 <%}}%>.<%}%>\
 \
+<%if (roles.length > 0) { %>\
+  <%=data.name%> has served as \
+<%for (i = 0; i < roles.length; i++) { %>\
+<%if (i > 0 && roles.length != 2) { %>, <%}%><%if (i == roles.length - 1 && roles.length >= 2) { %> and <%}%>\
+  a <% print(data['roles'][i]['role']) %>\
+<%}%>.<%}%>\
+\
+<%if (awards.length > 0) { %>\
+  She has been recognized for her work with \
+<%for (i = 0; i < awards.length; i++) { %>\
+<%if (i > 0 && awards.length != 2) { %>, <%}%><%if (i == awards.length - 1 && awards.length >= 2) { %> and <%}%>\
+  a <% print(data['awards'][i]['award']) %>\
+<%}%>.<%}%>\
+\
 <%if (flavor.interests) { %>\
-  <%=data.name%> is \
+  <%=data.name%> \
   <%if (flavor.verb) {%>\
     <%=flavor.verb%>\
   <%} else {%>\
@@ -406,6 +461,8 @@
             previous: data['previous'],
             degree: data['degree'],
             flavor: data['flavor'],
+            awards: data['awards'],
+            roles: data['roles'],
           }));
         });
       });
