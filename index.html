@@ -345,7 +345,7 @@
         ]
 
         $j('#action-start').click(function () {
-          $j('#section-intro').fadeOut(500, function () {
+          $j('#section-intro').fadeOut(750, function () {
             $j('#section-basics').fadeIn(500);
           });
         });
@@ -353,7 +353,7 @@
         action_next = $j('#action-next');
         action_next.click(function () {
           bio_contents.html(_.template(_.sample(default_bio_options))({name: data['name']}));
-          $j('#section-basics').fadeOut(500, function () {
+          $j('#section-basics').fadeOut(750, function () {
             $j('#section-extras').fadeIn(500);
           });
         });
